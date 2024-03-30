@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
+using System.Windows.Input;
 
 namespace TaskProgram
 {
@@ -14,7 +15,6 @@ namespace TaskProgram
             ConsultarTarefaPorDepartamento(departamento);
         }
 
-
         public static void ConsultarTarefaPorDepartamento(string departamento)
         {
             string connectionString = "Data Source=DESKTOP-0J2H3A3;Initial Catalog=master;Integrated Security=SSPI;TrustServerCertificate=True";
@@ -23,7 +23,7 @@ namespace TaskProgram
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT id, descricacao, data FROM task WHERE departamento = @departamento";
+                    string query = "SELECT id, descricacao, data FROM task";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {

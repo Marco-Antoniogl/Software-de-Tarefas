@@ -61,17 +61,19 @@ namespace TaskProgram
         {
             Console.Clear();
             Console.WriteLine(value: $"Bem vindo ao menu {username}, escolha uma das opções!");
-            Console.WriteLine("1 - Verificar Task \n 2 - Adicionar nova Task \n 3 - Sai");
+            Console.WriteLine("1 - Verificar task \n 2 - Adicionar nova task \n 3 - Sai");
             int NumeroEscolha = int.Parse(Console.ReadLine());
 
             if (NumeroEscolha == 1)
             {
-                Console.WriteLine("Você Escolheu a opção 1.");
+                Console.WriteLine("Você Escolheu a opção verificar task.");
                 ClassOpcaoVerificaoDetask.OpcaoVerificacaoDeTask(username);
             }
 
-            if (NumeroEscolha == 2){
-                Console.WriteLine("Você Escolheu a opção 2.");
+            if (NumeroEscolha == 2)
+            {
+                Console.WriteLine("Você Escolheu a opção adicionar nova task.");
+                AdicionarNovaTask.CadastroAdicionarNovaTask(username);
             }
             else
             {
