@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +10,12 @@ namespace TaskProgram
 {
     public class AdicionarNovaTask
     {
+        internal static object departamentoMapping;
+
         public static void OpcaoAdicionarNovaTask(string username)
         {
             string departamento;
             Console.WriteLine("Bem vindo a opcao adicionar nova task.");
-            /*departamento = Console.ReadLine();
-            if(departamento == "1" || departamento == "2" || departamento == "3" || departamento == "4" || departamento == "5")
-            {
-                CadastroAdicionarNovaTask(departamento);
-            }
-            else
-            {
-                Console.WriteLine("Escolha uma opção valida.");
-            }
-            */
         }
 
         public class AdicicionarNoBancoDeDados
@@ -47,29 +40,39 @@ namespace TaskProgram
                 }
             }
         }
-
+        
         public static void CadastroAdicionarNovaTask(string username)
         {
             try
             {
                 string departamento, descricacao, data;
+                Dictionary<string, string> departamentoMapping = new Dictionary<string, string>()
+                {
+                    {"1", "Financeiro"},
+                    {"2", "Departamento Pessoal"},
+                    {"3", "Recursos Humanos"},
+                    {"4", "Administrativo"}
+                };
 
-                while (true) { 
-                    Console.WriteLine("Escolha o departamento para adicionar a task:\n 1 - Financeiro\n 2 - Departamento Pessoal\n 3 - Recursos Humanos\n 4 - Administrativo: ");
-                    departamento = Console.ReadLine();
+                /* *********************************************************************** */
 
-                    if (departamento == "1" || departamento == "2" || departamento == "3" || departamento == "4" || departamento == "5")
+                Console.WriteLine("Escolha o departamento para adicionar a tarefas:\n 1 - Financeiro\n 2 - Departamento Pessoal\n 3 - Recursos Humanos\n 4 - Administrativo: ");
+                string OpcaoDeDepartamento = Console.ReadLine();
+
+                if (!departamentoMapping.ContainsKey(OpcaoDeDepartamento))
                     {
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Opção invalida, escolha uma opção valida");
-                    }
+                    Console.WriteLine("Opção inválida, escolha uma opção válida.");
+                    return;
                 }
+                departamento = departamentoMapping[OpcaoDeDepartamento];
+
+                /* *********************************************************************** */
 
                 Console.WriteLine("Escreva a descricao da task a ser realizada: ");
                 descricacao = Console.ReadLine();
+
+                /* *********************************************************************** */
+                
                 while (true)
                 {
                     Console.WriteLine("Escolha a data a se adicionado (no formato dd/mm/aaaa): ");
@@ -84,6 +87,8 @@ namespace TaskProgram
                         Console.WriteLine("Formato de data inválido, inserir no formato dd/mm/aaaa "); 
                     }
                 }
+
+                /* *********************************************************************** */
 
                 string connectionString = "Data Source=DESKTOP-0J2H3A3;Initial Catalog=master;Integrated Security=SSPI;TrustServerCertificate=True";
 

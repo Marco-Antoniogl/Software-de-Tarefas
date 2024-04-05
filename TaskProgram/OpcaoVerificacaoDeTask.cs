@@ -10,7 +10,23 @@ namespace TaskProgram
         {
             string departamento;
             Console.WriteLine("Escolha o Departamento:\n 1 - Financeiro\n 2 - Departamento Pessoal\n 3 - Recursos Humanos\n 4 - Administrativo\n 5 - Voltar");
-            departamento = Console.ReadLine();
+
+            string OpcaoDeDepartamento = Console.ReadLine();
+
+            Dictionary<string, string> departamentoMapping = new Dictionary<string, string>()
+                {
+                    {"1", "Financeiro"},
+                    {"2", "Departamento Pessoal"},
+                    {"3", "Recursos Humanos"},
+                    {"4", "Administrativo"}
+                };
+
+            if (!departamentoMapping.ContainsKey(OpcaoDeDepartamento))
+            {
+                Console.WriteLine("Opção inválida, escolha uma opção válida.");
+                return;
+            }
+            departamento = departamentoMapping[OpcaoDeDepartamento];
 
             ConsultarTarefaPorDepartamento(departamento);
         }
@@ -23,7 +39,7 @@ namespace TaskProgram
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT id, descricacao, data FROM task";
+                    string query = "SELECT id, descricacao, data FROM task WHERE departamento = @departamento";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {

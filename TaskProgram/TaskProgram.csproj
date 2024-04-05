@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="C:\Users\Maah3\OneDrive\Área de Trabalho\ProgramTask\TarefaAtualizacoes.txt" Link="TarefaAtualizacoes.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
   </ItemGroup>
 

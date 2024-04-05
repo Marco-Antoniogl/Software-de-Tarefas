@@ -61,7 +61,7 @@ namespace TaskProgram
         {
             Console.Clear();
             Console.WriteLine(value: $"Bem vindo ao menu {username}, escolha uma das opções!");
-            Console.WriteLine("1 - Verificar task \n 2 - Adicionar nova task \n 3 - Sai");
+            Console.WriteLine(" 1 - Verificar tarefas \n 2 - Adicionar nova tarefas \n 3 - Sair");
             int NumeroEscolha = int.Parse(Console.ReadLine());
 
             if (NumeroEscolha == 1)
