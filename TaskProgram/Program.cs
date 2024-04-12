@@ -8,6 +8,9 @@ namespace TaskProgram
     {
         
         public static string username, password;
+        public static string nm_cargo;
+
+
         static void Main(string[] args)
         {
             Login(username, password);
@@ -20,8 +23,8 @@ namespace TaskProgram
 
             Console.WriteLine("Senha: ");
             password = Console.ReadLine();
-        }
 
+        }
         public static void Login(string username, string password)
         {
             DigitarDadosParaLogin(ref username, ref password);
@@ -45,7 +48,7 @@ namespace TaskProgram
                     if (count > 0)
                     {
                         Console.WriteLine("Usuário Autenticado com sucesso!");
-                        MenuInicial(username);
+                        VerificaoDeCargo(username);
                     }
 
                     else
@@ -57,6 +60,38 @@ namespace TaskProgram
                 }
             }
         }
+
+        public static void VerificaoDeCargo(string username)
+        {
+            string connectionString = "Data Source=DESKTOP-0J2H3A3;Initial Catalog=master;Integrated Security=SSPI;TrustServerCertificate=True";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT NM_CARGO FROM usuarios WHERE userName = @username";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
+                    { 
+                        string nm_cargo = reader["NM_CARGO"].ToString();
+                        if (nm_cargo == "Gerente" || nm_cargo == "Lider" || nm_cargo == "Desenvolvedor")
+                        {
+                            Console.WriteLine("Usuário tem a senioridade correta!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Usuário tem a senioridade correta!");
+                            MenuInicial(username);
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+        }
+
         public static void MenuInicial(string username)
         {
             Console.Clear();
