@@ -3,6 +3,7 @@ using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,16 +27,17 @@ namespace TaskProgram
                 this.connectionString = connectionString;
             }
 
-            public void InserirAsTarefas(string departamento, string descricacao, string data) // Corrigir a opcao stringa para date
+            public void InserirAsTarefas(string departamento, string descricacao, string data)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "INSERT INTO task (departamento, descricacao, data) VALUES (@departamento, @descricacao, @data)"; //se nada for adicionado o problema segue na conexão ou add no banco de dados.
+                    string query = "INSERT INTO task (departamento, descricacao, data, id_status) VALUES (@departamento, @descricacao, @data, @id_status)"; //se nada for adicionado o problema segue na conexão ou add no banco de dados.
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("departamento", departamento);
                     command.Parameters.AddWithValue("descricacao", descricacao);
                     command.Parameters.AddWithValue("data", data);
+                    command.Parameters.AddWithValue("@id_status", 0);
                     command.ExecuteNonQuery();
                 }
             }
@@ -90,13 +92,15 @@ namespace TaskProgram
 
                 /* *********************************************************************** */
 
+
+                /* *********************************************************************** */
                 string connectionString = "Data Source=DESKTOP-0J2H3A3;Initial Catalog=master;Integrated Security=SSPI;TrustServerCertificate=True";
 
                 AdicicionarNoBancoDeDados AddBD = new AdicicionarNoBancoDeDados(connectionString);
                 AddBD.InserirAsTarefas(departamento, descricacao, data);
 
                 Console.WriteLine("Tarefa adicionada com sucesso.");
-
+                 
             }
 
             catch(Exception ex)

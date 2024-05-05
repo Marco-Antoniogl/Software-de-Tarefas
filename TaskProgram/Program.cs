@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace TaskProgram
 {
-    internal class Program
+    public class Program
     {
         
         public static string username, password;
@@ -80,6 +80,7 @@ namespace TaskProgram
                         if (nm_cargo == "Gerente" || nm_cargo == "Lider" || nm_cargo == "Desenvolvedor")
                         {
                             Console.WriteLine("Usuário tem a senioridade correta!");
+                            MenuGerente(username);
                         }
                         else
                         {
@@ -89,6 +90,37 @@ namespace TaskProgram
                     }
                     connection.Close();
                 }
+            }
+        }
+
+        public static void MenuGerente(string username)
+        {
+            Console.Clear();
+            Console.WriteLine(value: $"Bem vindo ao menu {username}, escolha uma das opções!");
+            Console.WriteLine(" 1 - Verificar tarefas \n 2 - Adicionar nova tarefas \n 3 - Relatorio \n 4 - Sair");
+            int NumeroEscolha = int.Parse(Console.ReadLine());
+
+            if (NumeroEscolha == 1)
+            {
+                Console.WriteLine("Você Escolheu a opção verificar task.");
+                ClassOpcaoVerificaoDetask.OpcaoVerificacaoDeTask(username);
+            }
+
+            if (NumeroEscolha == 2)
+            {
+                Console.WriteLine("Você Escolheu a opção adicionar nova task.");
+                AdicionarNovaTask.CadastroAdicionarNovaTask(username);
+            }
+
+            if (NumeroEscolha == 3)
+            {
+                Console.WriteLine("Você Escolheu a opção relatorios.");
+                OpcaoRelatorio.RelatorioMetodos();
+            }
+
+            else
+            {
+                Console.WriteLine("fechar?");
             }
         }
 

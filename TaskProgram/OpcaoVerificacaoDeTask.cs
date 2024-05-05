@@ -21,6 +21,8 @@ namespace TaskProgram
                     {"4", "Administrativo"}
                 };
 
+            //Alterar para Array.
+
             if (!departamentoMapping.ContainsKey(OpcaoDeDepartamento))
             {
                 Console.WriteLine("Opção inválida, escolha uma opção válida.");
@@ -39,7 +41,7 @@ namespace TaskProgram
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT id, descricacao, data FROM task WHERE departamento = @departamento";
+                    string query = "SELECT id, descricacao, data FROM task WHERE departamento = @departamento AND id_status = 0";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
